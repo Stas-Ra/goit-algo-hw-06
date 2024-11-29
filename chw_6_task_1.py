@@ -24,22 +24,12 @@ class Phone(Field):
         return str(self.value)
 
 class Record:
-    # contact = {}
-    
-
     def __init__(self, name):
         self.name = Name(name)
         self.phones = []
-        # Record.contact.update({self.name.value: self})
-        # Record.contact[self.name.value] = f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
-        # print(Record.contact)
-        # print(Name(name))
-        
-
     
     def add_phone(self, value):
         self.phones.append(Phone(value))
-        # print(self.phones)
 
     def remove_phone(self, value):
         self.phones = [p for p in self.phones if p.value != value]
@@ -64,10 +54,12 @@ class AddressBook(UserDict):
     def delete(self, name):
         del self.data[name]
 
-
-    def str(self):
-        pass
-        # return f"Record {} {}" 
+    def __str__(self):
+        # print(self)
+        # print(("\n".join(el for el in self)))
+        # print(self.data.get('; '.join(el for el in self)))
+        return f"Record in AddressBook:\n{("\n".join(el for el in book))}"
+        # return f"Record {self} {}" 
 
         
 
@@ -87,17 +79,15 @@ jane_record.add_phone("9876543210")
 book.add_record(jane_record)
 
 # Виведення всіх записів у книзі
-print(book)
+# print(book)
 john = book.find("John")
 # print(john)
-
 john.edit_phone("1234567890", "1112223333")
 # print(john)
-
 found_phone = john.find_phone("5555555555")
-# print(f"{john.name}: {found_phone}")  # Виведення: John: 5555555555
+print(f"{john.name}: {found_phone}")  # Виведення: John: 5555555555
 
 # Видалення запису Jane
-book.delete("Jane")
+# book.delete("Jane")
 print(book)
 
