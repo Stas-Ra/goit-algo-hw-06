@@ -43,8 +43,7 @@ class Record:
     def __str__(self):
         return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
 
-class AddressBook(UserDict):
-  
+class AddressBook(UserDict):  
     def add_record(self, record):
         self.data[record.name.value] = record
 
@@ -55,14 +54,7 @@ class AddressBook(UserDict):
         del self.data[name]
 
     def __str__(self):
-        # print(self)
-        # print(("\n".join(el for el in self)))
-        # print(self.data.get('; '.join(el for el in self)))
         return f"Record in AddressBook:\n{("\n".join(el for el in book))}"
-        # return f"Record {self} {}" 
-
-        
-
         
 # Створення нової адресної книги
 book = AddressBook()
