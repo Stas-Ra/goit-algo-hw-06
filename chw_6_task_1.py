@@ -44,14 +44,8 @@ class Record:
     def remove_phone(self, value):
         self.phones = [p for p in self.phones if p.value != value]
 
-    def edit_phone(self, old_phone, new_phone):
-        # self.phones.append(Phone(new_phone))
-        self.phones = [p if p != old_phone else Phone(new_phone) for p in self.phones]
-        print(self.phones)
-        
-        # print(str(self))
-        # self.phones.append(Phone(new_value))
-        # self.phones = [p for p in self.phones if p.value != old_value].append(Phone(new_value))
+    def edit_phone(self, old_value, new_value):
+        self.phones = [p if p.value != old_value else Phone(new_value) for p in self.phones]
         
         
 
