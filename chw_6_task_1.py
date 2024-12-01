@@ -41,7 +41,7 @@ class Record:
             raise ValueError
 
     def find_phone(self, phone):
-        return Phone(phone) if phone in (p.value for p in self.phones) else None
+        return phone if phone in (p.value for p in self.phones) else None
         
     def __str__(self):
         return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
