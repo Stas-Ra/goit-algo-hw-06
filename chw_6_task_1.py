@@ -15,10 +15,10 @@ class Name(Field):
 class Phone(Field): 
     def __init__(self, value):
         super().__init__(value)
-        if len(self.value) != 10:
-            raise ValueError
-        else:
+        if len(self.value) == 10 and self.value.isdigit():
             self.value = value
+        else:
+            raise ValueError
 
     def __str__(self):
         return str(self.value)
@@ -35,7 +35,10 @@ class Record:
         self.phones = [p for p in self.phones if p.value != value]
 
     def edit_phone(self, old_phone, new_phone):
-        self.phones = [p if p.value != old_phone else Phone(new_phone) for p in self.phones]
+        if old_phone in (p.value for p in self.phones):
+            self.phones = [p if p.value != old_phone else Phone(new_phone) for p in self.phones]
+        else:
+            raise ValueError
 
     def find_phone(self, phone):
         return Phone(phone) if phone in (p.value for p in self.phones) else None
@@ -63,7 +66,7 @@ book = AddressBook()
 john_record = Record("John")
 john_record.add_phone("1234567890")
 john_record.add_phone("5555555555")
-# john_record.add_phone("+381234567890")
+# john_record.add_phone(" 234567890")
 book.add_record(john_record)
 
 jane_record = Record("Jane")
@@ -71,11 +74,11 @@ jane_record.add_phone("9876543210")
 book.add_record(jane_record)
 
 # Виведення всіх записів у книзі
-# print(book)
+print(book)
 john = book.find("John")
-# print(john)
+print(john)
 john.edit_phone("1234567890", "1112223333")
-# print(john)
+print(john)
 found_phone = john.find_phone("5555555555")
 print(f"{john.name}: {found_phone}")  # Виведення: John: 5555555555
 
