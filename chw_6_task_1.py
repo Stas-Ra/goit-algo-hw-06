@@ -14,9 +14,8 @@ class Name(Field):
     
 class Phone(Field): 
     def __init__(self, value):
-        super().__init__(value)
-        if len(self.value) == 10 and self.value.isdigit():
-            self.value = value
+        if len(value) == 10 and value.isdigit():
+            super().__init__(value)
         else:
             raise ValueError
 
@@ -41,7 +40,12 @@ class Record:
             raise ValueError
 
     def find_phone(self, phone):
-        return phone if phone in (p.value for p in self.phones) else None
+        # return (p.value if p == phone else None for p in self.phones)
+        for p in self.phones:
+            if p.value == phone:
+                return p
+            else:
+                None
         
     def __str__(self):
         return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
